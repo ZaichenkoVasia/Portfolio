@@ -1,9 +1,7 @@
 package portfolio;
 
 public class Stock {
-
     private double quantity;
-
     private double price;
 
     public Stock() {
@@ -28,5 +26,13 @@ public class Stock {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Stock{" +
+                "quantity=" + quantity +
+                ", price=" + price +
+                '}';
     }
 }
