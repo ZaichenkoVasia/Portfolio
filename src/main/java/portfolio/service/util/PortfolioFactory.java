@@ -19,15 +19,15 @@ public final class PortfolioFactory {
     }
 
     private static List<Stock> initStocks(String nameFilePrice, String nameFileQuantity) {
-        List<Double> prices2019 = FileParser.parseFile(nameFilePrice);
+        List<Double> prices = FileParser.parseFile(nameFilePrice);
         List<Double> quantities = FileParser.parseFile(nameFileQuantity);
 
-        if (prices2019.size() != quantities.size()) {
+        if (prices.size() != quantities.size()) {
             throw new IncorrectInitValueRuntimeException(DIFFERENT_SIZE_OF_PRICES_AND_QUANTITIES);
         }
         ArrayList<Stock> stocks = new ArrayList<>();
         for (int i = 0; i < quantities.size(); i++) {
-            stocks.add(new Stock(quantities.get(i), prices2019.get(i)));
+            stocks.add(new Stock(quantities.get(i), prices.get(i)));
         }
         return stocks;
     }
