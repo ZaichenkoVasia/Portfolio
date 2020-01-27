@@ -8,9 +8,9 @@ The financial portfolio consists of stocks. Each stock consists of the price and
 
 ### Input data
 
-[quantity](../resources/quantity/quantity.txt)
-[price2019](../resources/price/price2019.txt)
-[price2020](../resources/price/price2020.txt)
+- [quantity](../resources/quantity/quantity.txt)
+- [price2019](../resources/price/price2019.txt)
+- [price2020](../resources/price/price2020.txt)
 
 ### Output data
 
