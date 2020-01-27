@@ -2,16 +2,18 @@ package portfolio;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Portfolio {
-    private ArrayList<Stock> stocks = new ArrayList<>();
-    private HashMap<Integer, Double> yearToTotalValue = new HashMap<>();
+    private List<Stock> stocks = new ArrayList<>();
+    private Map<Integer, Double> yearToTotalValues = new HashMap<>();
     private int year;
 
     public Portfolio() {
     }
 
-    public Portfolio(ArrayList<Stock> stocks, int year) {
+    public Portfolio(List<Stock> stocks, int year) {
         this.stocks = new ArrayList<>(stocks);
         this.year = year;
         calculateTotalValue();
@@ -27,16 +29,16 @@ public class Portfolio {
         for (Stock stock : stocks) {
             totalValue += stock.getPrice() * stock.getQuantity();
         }
-        yearToTotalValue.put(year, totalValue);
+        yearToTotalValues.put(year, totalValue);
     }
 
     public void calculateTotalValue(Stock stock) {
-        double totalValue = yearToTotalValue.getOrDefault(year, 0.0);
+        double totalValue = yearToTotalValues.getOrDefault(year, 0.0);
         totalValue += stock.getPrice() * stock.getQuantity();
-        yearToTotalValue.put(year, totalValue);
+        yearToTotalValues.put(year, totalValue);
     }
 
-    public void updatePriceOfStocks(ArrayList<Double> prices, int year) {
+    public void addYearPricesOfStocks(List<Double> prices, int year) {
         for (int i = 0; i < stocks.size(); i++) {
             stocks.get(i).setPrice(prices.get(i));
         }
@@ -44,17 +46,21 @@ public class Portfolio {
         calculateTotalValue();
     }
 
-    private void showTotalValueOfPortfolio(int year) {
+    private void showTotalValue(int year) {
         System.out.println("Total Value of Portfolio for " + year + " is "
-                + yearToTotalValue.get(year));
+                + yearToTotalValues.get(year));
     }
 
     public void differenceTotalValuesByTwoYear(int firstYear, int secondYear) {
-        double firstTotalValue = yearToTotalValue.get(firstYear);
-        double secondTotalValue = yearToTotalValue.get(secondYear);
+        double firstTotalValue = yearToTotalValues.get(firstYear);
+        double secondTotalValue = yearToTotalValues.get(secondYear);
         double difference = secondTotalValue - firstTotalValue;
-        showTotalValueOfPortfolio(firstYear);
-        showTotalValueOfPortfolio(secondYear);
+        printDifferenceTotalValues(firstYear, secondYear, difference);
+    }
+
+    private void printDifferenceTotalValues(int firstYear, int secondYear, double difference) {
+        showTotalValue(firstYear);
+        showTotalValue(secondYear);
         String differenceOutput = difference > 0 ?
                 "Difference: +" + difference + "(congratulations!)"
                 : "Difference: " + difference + "(don`t worry, will be lucky next year!)";
@@ -62,12 +68,12 @@ public class Portfolio {
         System.out.println("-----------------------------------\n");
     }
 
-    public void showPortfolio() {
+    public void print() {
         System.out.println("Portfolio " + year + " :");
         for (Stock stock : stocks) {
             System.out.println(stock);
         }
-        showTotalValueOfPortfolio(year);
+        showTotalValue(year);
         System.out.println("-----------------------------------\n");
     }
 }
