@@ -27,6 +27,24 @@ public class Demo {
         portfolioService.addYearPricesOfStocks(portfolio, prices2020, CURRENT_YEAR);
         portfolioService.calculateTotalValue(portfolio);
         portfolioService.print(portfolio);
-        portfolioService.differenceTotalValuesByTwoYear(portfolio, PREVIOUS_YEAR, CURRENT_YEAR);
+
+        double difference =
+                portfolioService.differenceTotalValuesByTwoYear(portfolio, PREVIOUS_YEAR, CURRENT_YEAR);
+        printDifference(difference, portfolio);
+    }
+
+    private static void printDifference(double difference, Portfolio portfolio){
+        showTotalValue(portfolio, PREVIOUS_YEAR);
+        showTotalValue(portfolio, CURRENT_YEAR);
+        String differenceOutput = difference > 0 ?
+                "Difference: +" + difference + "(congratulations!)"
+                : "Difference: " + difference + "(don`t worry, will be lucky next year!)";
+        System.out.println(differenceOutput);
+        System.out.println("-----------------------------------\n");
+    }
+
+    private static void showTotalValue(Portfolio portfolio, int year) {
+        System.out.println("Total Value of Portfolio for " + year + " is "
+                + portfolio.getTotalValuesByYear(year));
     }
 }
