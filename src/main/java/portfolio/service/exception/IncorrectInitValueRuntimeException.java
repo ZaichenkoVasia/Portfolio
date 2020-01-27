@@ -1,4 +1,4 @@
-package portfolio.exception;
+package portfolio.service.exception;
 
 public class IncorrectInitValueRuntimeException extends RuntimeException {
     public IncorrectInitValueRuntimeException() {

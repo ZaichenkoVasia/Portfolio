@@ -1,4 +1,4 @@
-package portfolio;
+package portfolio.domain;
 
 public class Stock {
     private double quantity;

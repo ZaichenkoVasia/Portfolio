@@ -1,7 +1,9 @@
-package portfolio;
+package portfolio.view;
 
-import portfolio.exception.IncorrectInitValueRuntimeException;
-import portfolio.util.FileParser;
+import portfolio.domain.Portfolio;
+import portfolio.domain.Stock;
+import portfolio.service.exception.IncorrectInitValueRuntimeException;
+import portfolio.service.util.FileParser;
 
 import java.util.ArrayList;
 import java.util.List;
