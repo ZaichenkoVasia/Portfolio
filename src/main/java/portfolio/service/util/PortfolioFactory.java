@@ -9,20 +9,18 @@ import java.util.List;
 
 public final class PortfolioFactory {
     private static final String DIFFERENT_SIZE_OF_PRICES_AND_QUANTITIES = "Different size of prices and quantities";
-    private static final String FILE_NAME_PRICE2019 = "src/main/resources/price/price2019.txt";
-    private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.txt";
 
     private PortfolioFactory() {
     }
 
-    public static Portfolio getPortfolio(int year){
-        List<Stock> stocks = initStocks();
+    public static Portfolio getPortfolio(int year, String nameFilePrice, String nameFileQuantity) {
+        List<Stock> stocks = initStocks(nameFilePrice, nameFileQuantity);
         return new Portfolio(stocks, year);
     }
 
-    private static List<Stock> initStocks() {
-        List<Double> prices2019 = FileParser.parseFile(FILE_NAME_PRICE2019);
-        List<Double> quantities = FileParser.parseFile(FILE_NAME_QUANTITY);
+    private static List<Stock> initStocks(String nameFilePrice, String nameFileQuantity) {
+        List<Double> prices2019 = FileParser.parseFile(nameFilePrice);
+        List<Double> quantities = FileParser.parseFile(nameFileQuantity);
 
         if (prices2019.size() != quantities.size()) {
             throw new IncorrectInitValueRuntimeException(DIFFERENT_SIZE_OF_PRICES_AND_QUANTITIES);

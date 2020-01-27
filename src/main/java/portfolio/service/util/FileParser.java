@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 public final class FileParser {
 
+    private FileParser() {
+    }
+
     public static List<Double> parseFile(String nameFile) {
         Scanner scanner = getScanner(nameFile);
         List<Double> fileValues = new ArrayList<>();

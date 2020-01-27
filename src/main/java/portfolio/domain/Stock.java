@@ -4,9 +4,6 @@ public class Stock {
     private double quantity;
     private double price;
 
-    public Stock() {
-    }
-
     public Stock(double quantity, double price) {
         this.quantity = quantity;
         this.price = price;
