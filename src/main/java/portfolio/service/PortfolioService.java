@@ -7,6 +7,7 @@ import java.util.List;
 
 public class PortfolioService {
 
+    // TODO: rework calculation operations to work with BigDecimal
     public double calculateTotalValue(Portfolio portfolio) {
         double totalValue = 0;
         List<Stock> stocks = portfolio.getStocks();

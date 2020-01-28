@@ -16,6 +16,7 @@ public class Demo {
 
     private static PortfolioService portfolioService = new PortfolioService();
 
+    //TODO in years
     public static void main(String[] args) {
         Portfolio portfolio =
                 PortfolioFactory.getPortfolio(PREVIOUS_YEAR, FILE_NAME_PRICE2019, FILE_NAME_QUANTITY);

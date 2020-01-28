@@ -1,6 +1,8 @@
 package portfolio.domain;
 
 public class Stock {
+    // TODO: add ID of stock and describe it in file
+    //TODO quantity to map in portfolio
     private double quantity;
     private double price;
 

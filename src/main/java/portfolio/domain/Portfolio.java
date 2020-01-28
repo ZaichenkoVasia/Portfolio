@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO: make portfolio object oriented, do not put there information it should not care about
 public class Portfolio {
     private List<Stock> stocks = new ArrayList<>();
     private Map<Integer, Double> yearToTotalValues = new HashMap<>();
