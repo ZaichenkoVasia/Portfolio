@@ -1,36 +1,36 @@
 package portfolio.domain;
 
-public class Stock {
-    // TODO: add ID of stock and describe it in file
-    //TODO quantity to map in portfolio
-    private double quantity;
-    private double price;
+import java.math.BigDecimal;
 
-    public Stock(double quantity, double price) {
-        this.quantity = quantity;
+public class Stock {
+    private String isin;
+    private BigDecimal price;
+
+    public Stock(String isin, BigDecimal price) {
+        this.isin = isin;
         this.price = price;
     }
 
-    public double getQuantity() {
-        return quantity;
+    public String getIsin() {
+        return isin;
     }
 
-    public void setQuantity(double quantity) {
-        this.quantity = quantity;
+    public void setIsin(String isin) {
+        this.isin = isin;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
         return "Stock{" +
-                "quantity=" + quantity +
+                "isin='" + isin + '\'' +
                 ", price=" + price +
                 '}';
     }

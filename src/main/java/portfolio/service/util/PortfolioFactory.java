@@ -4,31 +4,29 @@ import portfolio.domain.Portfolio;
 import portfolio.domain.Stock;
 import portfolio.service.exception.IncorrectInitValueRuntimeException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class PortfolioFactory {
-    private static final String DIFFERENT_SIZE_OF_PRICES_AND_QUANTITIES = "Different size of prices and quantities";
+    private static final String INCORRECT_INIT_VALUES = "Init values of price or quantity are incorrect";
 
     private PortfolioFactory() {
     }
 
-    public static Portfolio getPortfolio(int year, String nameFilePrice, String nameFileQuantity) {
-        List<Stock> stocks = initStocks(nameFilePrice, nameFileQuantity);
-        return new Portfolio(stocks, year);
-    }
-
-    private static List<Stock> initStocks(String nameFilePrice, String nameFileQuantity) {
-        List<Double> prices = FileParser.parseFile(nameFilePrice);
-        List<Double> quantities = FileParser.parseFile(nameFileQuantity);
-
-        if (prices.size() != quantities.size()) {
-            throw new IncorrectInitValueRuntimeException(DIFFERENT_SIZE_OF_PRICES_AND_QUANTITIES);
+    public static Portfolio getPortfolio(String year) {
+        Map<String, BigDecimal> prices = FileParser.parseCSVPriceFile(year);
+        Map<String, Integer> quantities = FileParser.parseCSVQuantityFile(year);
+        if (prices == null || quantities == null) {
+            throw new IncorrectInitValueRuntimeException(INCORRECT_INIT_VALUES);
         }
-        ArrayList<Stock> stocks = new ArrayList<>();
-        for (int i = 0; i < quantities.size(); i++) {
-            stocks.add(new Stock(quantities.get(i), prices.get(i)));
+        Map<Stock, Integer> stockToQuantity = new HashMap<>();
+        for (String priceKey : prices.keySet()) {
+            if (quantities.containsKey(priceKey)) {
+                Stock stock = new Stock(priceKey, prices.get(priceKey));
+                stockToQuantity.put(stock, quantities.get(priceKey));
+            }
         }
-        return stocks;
+        return new Portfolio(stockToQuantity, year);
     }
 }
