@@ -8,12 +8,10 @@ The financial portfolio consists of stocks. Each stock consists of the price and
 
 ### Input data
 
-- [quantity](src/main/resources/quantity/quantity.txt)
-- [price2019](src/main/resources/price/price2019.txt)
-- [price2020](src/main/resources/price/price2020.txt)
+- [quantity](src/main/resources/quantity/quantity.csv)
+- [price](src/main/resources/price/price.csv)
 
 ### Output data
 
-- Total Value of Portfolio for 2019 is 27.4
-- Total Value of Portfolio for 2020 is 30.4
-- Difference: +3.0
+- Total value of portfolio for chosen year and it stocks
+- Difference of total values of portfolios for chosen years
