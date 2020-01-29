@@ -1,51 +1,49 @@
-package portfolio.service.util;
+package portfolio.data;
 
 import com.opencsv.CSVReader;
+import portfolio.data.dto.PriceStockDTO;
+import portfolio.data.dto.QuantityStockDTO;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class FileParser {
-    private static CSVReader reader = null;
-    private static final String FILE_NAME_PRICE = "src/main/resources/price/price.csv";
-    private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.csv";
+    private String priceFileName;
+    private String quantityFileName;
 
-    private FileParser() {
+    public FileParser(String priceFileName, String quantityFileName) {
+        this.priceFileName = priceFileName;
+        this.quantityFileName = quantityFileName;
     }
 
-    public static Map<String, BigDecimal> parseCSVPriceFile(String year) {
-        Map<String, BigDecimal> values = new HashMap<>();
+    public List<PriceStockDTO> parseCSVPriceFile() {
+        List<PriceStockDTO> priceStockDTOs = new ArrayList<>();
         try {
-            reader = new CSVReader(new FileReader(FILE_NAME_PRICE));
+            CSVReader reader = new CSVReader(new FileReader(priceFileName));
             String[] line;
             while ((line = reader.readNext()) != null) {
-                if (line[0].equals(year))
-                    values.put(line[1], new BigDecimal(line[2]));
+               priceStockDTOs.add(new PriceStockDTO(line[0], line[1], new BigDecimal(line[2])));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return values;
+        return priceStockDTOs;
     }
 
-    public static Map<String, Integer> parseCSVQuantityFile(String year) {
-        Map<String, Integer> values = new HashMap<>();
+    public List<QuantityStockDTO> parseCSVQuantityFile(String year) {
+        List<QuantityStockDTO> quantityStockDTOs = new ArrayList<>();
         try {
-            reader = new CSVReader(new FileReader(FILE_NAME_QUANTITY));
+            CSVReader reader = new CSVReader(new FileReader(quantityFileName));
             String[] line;
             while ((line = reader.readNext()) != null) {
-                if (line[0].equals(year))
-                    values.put(line[1], Integer.valueOf(line[2]));
+                quantityStockDTOs.add(new QuantityStockDTO(line[0], line[1], new Double(line[2])));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return values;
+        return quantityStockDTOs;
     }
 
     public static Set<String> findAvailableYears() {

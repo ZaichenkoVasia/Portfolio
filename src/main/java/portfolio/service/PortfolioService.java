@@ -1,7 +1,7 @@
 package portfolio.service;
 
-import portfolio.domain.Portfolio;
-import portfolio.domain.Stock;
+import portfolio.service.domain.Portfolio;
+import portfolio.service.domain.Stock;
 
 import java.math.BigDecimal;
 import java.util.Map;

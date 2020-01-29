@@ -1,15 +1,6 @@
 package portfolio.service;
 
-import org.junit.Before;
-import org.junit.Test;
-import portfolio.domain.Portfolio;
-import portfolio.service.util.FileParser;
-import portfolio.service.util.PortfolioFactory;
-
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 
 public class PortfolioServiceTest {
 //    private static final int PREVIOUS_YEAR = 2019;

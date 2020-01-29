@@ -1,16 +1,17 @@
 package portfolio.data.dto;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class QuantityStockDTO {
+public class PriceStockDTO {
     private String year;
     private String isin;
-    private Double quantity;
+    private BigDecimal price;
 
-    public QuantityStockDTO(String year, String isin, Double quantity) {
+    public PriceStockDTO(String year, String isin, BigDecimal price) {
         this.year = year;
         this.isin = isin;
-        this.quantity = quantity;
+        this.price = price;
     }
 
     public String getYear() {
@@ -21,22 +22,22 @@ public class QuantityStockDTO {
         return isin;
     }
 
-    public Double getQuantity() {
-        return quantity;
+    public BigDecimal getPrice() {
+        return price;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof QuantityStockDTO)) return false;
-        QuantityStockDTO that = (QuantityStockDTO) o;
+        if (!(o instanceof PriceStockDTO)) return false;
+        PriceStockDTO that = (PriceStockDTO) o;
         return Objects.equals(year, that.year) &&
                 Objects.equals(isin, that.isin) &&
-                Objects.equals(quantity, that.quantity);
+                Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(year, isin, quantity);
+        return Objects.hash(year, isin, price);
     }
 }

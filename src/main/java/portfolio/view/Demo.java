@@ -1,8 +1,8 @@
 package portfolio.view;
 
-import portfolio.domain.Portfolio;
+import portfolio.service.domain.Portfolio;
 import portfolio.service.PortfolioService;
-import portfolio.service.util.FileParser;
+import portfolio.data.FileParser;
 import portfolio.service.util.PortfolioFactory;
 
 import java.math.BigDecimal;
@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Demo {
+    private static final String FILE_NAME_PRICE = "src/main/resources/price/price.csv";
+    private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.csv";
     private static PortfolioService portfolioService = new PortfolioService();
 
     public static void main(String[] args) {
