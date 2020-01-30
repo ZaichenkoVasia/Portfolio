@@ -38,12 +38,12 @@ public class PortfolioService {
         portfolio.print();
     }
 
-    public Portfolio getPortfolio(String year) {
-        Map<Stock, BigDecimal> stockToQuantity = fileParser.parseCSVQuantityFile(year);
+    public Portfolio getPortfolio(String year, long id) {
+        Map<Stock, BigDecimal> stockToQuantity = fileParser.parseCSVQuantityFile(year, id);
         if (stockToQuantity == null) {
             throw new IncorrectInitValueRuntimeException(INCORRECT_INIT_VALUES);
         }
-        return new Portfolio(stockToQuantity, year);
+        return new Portfolio(id, stockToQuantity, year);
     }
 
     public Set<String> getAvailableYears(){

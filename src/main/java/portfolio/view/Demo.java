@@ -13,6 +13,7 @@ public class Demo {
     private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.csv";
     private static FileParser fileParser = new FileParser(FILE_NAME_PRICE, FILE_NAME_QUANTITY);
     private static PortfolioService portfolioService = new PortfolioService(fileParser);
+    private static long id =1;
 
     public static void main(String[] args) {
         menu();
@@ -35,12 +36,12 @@ public class Demo {
     }
 
     private static void findDifference(String firstYear, String secondYear) {
-        Portfolio firstPortfolio = portfolioService.getPortfolio(firstYear);
+        Portfolio firstPortfolio = portfolioService.getPortfolio(firstYear, id);
         BigDecimal firstTotalValue = portfolioService.calculateTotalValue(firstPortfolio);
         portfolioService.print(firstPortfolio);
         showTotalValue(firstTotalValue, firstYear);
 
-        Portfolio secondPortfolio =portfolioService.getPortfolio(secondYear);
+        Portfolio secondPortfolio =portfolioService.getPortfolio(secondYear, id);
 
         BigDecimal secondTotalValue = portfolioService.calculateTotalValue(secondPortfolio);
         portfolioService.print(secondPortfolio);

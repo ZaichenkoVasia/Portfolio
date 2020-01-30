@@ -23,14 +23,14 @@ public class FileParser {
         this.quantityFileName = quantityFileName;
     }
 
-    public Map<Stock, BigDecimal> parseCSVQuantityFile(String year) {
+    public Map<Stock, BigDecimal> parseCSVQuantityFile(String year, long id) {
         List<QuantityStockDTO> quantityStockDTOs = new ArrayList<>();
         stockToQuantity = new HashMap<>();
         try {
             CSVReader reader = new CSVReader(new FileReader(quantityFileName));
             String[] line;
             while ((line = reader.readNext()) != null) {
-                if (line[0].equals(year)) {
+                if (line[0].equals(year) && new Long(line[3]).equals(id)) {
                     quantityStockDTOs.add(new QuantityStockDTO(line[0], line[1], new BigDecimal(line[2])));
                 }
             }
@@ -72,7 +72,13 @@ public class FileParser {
         }
         for (PriceStockDTO stockDTO : stockDTOS) {
             if (stockDTO.getYear().equals(findYear.toString())) {
-                stockToQuantity.put(new Stock(findYear.toString(), stockDTO.getIsin(), stockDTO.getPrice()), quantity.getQuantity());
+                Stock stock = new Stock(findYear.toString(), stockDTO.getIsin(), stockDTO.getPrice());
+                if(stockToQuantity.containsKey(stock)){
+                    BigDecimal oldQuantity = stockToQuantity.get(stock);
+                    stockToQuantity.put(stock, oldQuantity.add(quantity.getQuantity()));
+                }else {
+                    stockToQuantity.put(stock, quantity.getQuantity());
+                }
             }
         }
     }
