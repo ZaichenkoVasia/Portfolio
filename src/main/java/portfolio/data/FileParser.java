@@ -16,14 +16,14 @@ public class FileParser {
     private String priceFileName;
     private String quantityFileName;
 
-    private Map<Stock, Double> stockToQuantity;
+    private Map<Stock, BigDecimal> stockToQuantity;
 
     public FileParser(String priceFileName, String quantityFileName) {
         this.priceFileName = priceFileName;
         this.quantityFileName = quantityFileName;
     }
 
-    public Map<Stock, Double> parseCSVQuantityFile(String year) {
+    public Map<Stock, BigDecimal> parseCSVQuantityFile(String year) {
         List<QuantityStockDTO> quantityStockDTOs = new ArrayList<>();
         stockToQuantity = new HashMap<>();
         try {
@@ -31,7 +31,7 @@ public class FileParser {
             String[] line;
             while ((line = reader.readNext()) != null) {
                 if (line[0].equals(year)) {
-                    quantityStockDTOs.add(new QuantityStockDTO(line[0], line[1], new Double(line[2])));
+                    quantityStockDTOs.add(new QuantityStockDTO(line[0], line[1], new BigDecimal(line[2])));
                 }
             }
         } catch (IOException e) {

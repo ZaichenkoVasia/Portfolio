@@ -19,10 +19,10 @@ public class PortfolioService {
 
     public BigDecimal calculateTotalValue(Portfolio portfolio) {
         BigDecimal totalValue = BigDecimal.ZERO;
-        Map<Stock, Double> stocks = portfolio.getStockToQuantity();
+        Map<Stock, BigDecimal> stocks = portfolio.getStockToQuantity();
         for (Stock stock : stocks.keySet()) {
             BigDecimal stockPrice = stock.getPrice();
-            BigDecimal portfolioStockPrice = stockPrice.multiply(BigDecimal.valueOf(stocks.get(stock)));
+            BigDecimal portfolioStockPrice = stockPrice.multiply(stocks.get(stock));
             totalValue = totalValue.add(portfolioStockPrice);
         }
         return totalValue;
@@ -39,7 +39,7 @@ public class PortfolioService {
     }
 
     public Portfolio getPortfolio(String year) {
-        Map<Stock, Double> stockToQuantity = fileParser.parseCSVQuantityFile(year);
+        Map<Stock, BigDecimal> stockToQuantity = fileParser.parseCSVQuantityFile(year);
         if (stockToQuantity == null) {
             throw new IncorrectInitValueRuntimeException(INCORRECT_INIT_VALUES);
         }

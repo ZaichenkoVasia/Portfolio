@@ -1,13 +1,14 @@
 package portfolio.data.dto;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class QuantityStockDTO {
     private String year;
     private String isin;
-    private Double quantity;
+    private BigDecimal quantity;
 
-    public QuantityStockDTO(String year, String isin, Double quantity) {
+    public QuantityStockDTO(String year, String isin, BigDecimal quantity) {
         this.year = year;
         this.isin = isin;
         this.quantity = quantity;
@@ -21,7 +22,7 @@ public class QuantityStockDTO {
         return isin;
     }
 
-    public Double getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 

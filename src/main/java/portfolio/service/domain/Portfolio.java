@@ -1,17 +1,18 @@
 package portfolio.service.domain;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 public class Portfolio {
-    private Map<Stock, Double> stockToQuantity;
+    private Map<Stock, BigDecimal> stockToQuantity;
     private String year;
 
-    public Portfolio(Map<Stock, Double> stockToQuantity, String year) {
+    public Portfolio(Map<Stock, BigDecimal> stockToQuantity, String year) {
         this.stockToQuantity = stockToQuantity;
         this.year = year;
     }
 
-    public Map<Stock, Double> getStockToQuantity() {
+    public Map<Stock, BigDecimal> getStockToQuantity() {
         return stockToQuantity;
     }
 
