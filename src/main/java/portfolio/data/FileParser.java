@@ -16,16 +16,31 @@ public class FileParser {
     private String priceFileName;
     private String quantityFileName;
 
-    private Map<Stock, BigDecimal> stockToQuantity;
-
     public FileParser(String priceFileName, String quantityFileName) {
         this.priceFileName = priceFileName;
         this.quantityFileName = quantityFileName;
     }
 
+    private Map<String, PriceStockDTO> parseCSVPriceFileByIsin(String isin) {
+        Map<String, PriceStockDTO> yearToStock = new HashMap<>();;
+        try {
+            CSVReader reader = new CSVReader(new FileReader(priceFileName));
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+                if (line[1].equals(isin)) {
+                    yearToStock.put(line[0], new PriceStockDTO(line[0], line[1], new BigDecimal(line[2])));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return yearToStock;
+    }
+
     public Map<Stock, BigDecimal> parseCSVQuantityFile(String year, long id) {
+        Map<Stock, BigDecimal> stockToQuantity = new HashMap<>();;
         List<QuantityStockDTO> quantityStockDTOs = new ArrayList<>();
-        stockToQuantity = new HashMap<>();
         try {
             CSVReader reader = new CSVReader(new FileReader(quantityFileName));
             String[] line;
@@ -38,67 +53,35 @@ public class FileParser {
             e.printStackTrace();
         }
         for (QuantityStockDTO quantity : quantityStockDTOs) {
-            if (!checkPriceExist(quantity)) {
-                findOldPrice(quantity);
-            }
+            Map<String, PriceStockDTO> yearToPriceStock = parseCSVPriceFileByIsin(quantity.getIsin());
+            PriceStockDTO stock = yearToPriceStock.containsKey(quantity.getYear())
+                    ? yearToPriceStock.get(quantity.getYear())
+                    : getNearestPriceStock(yearToPriceStock, quantity);
+            addQuantityToStock(stockToQuantity, quantity, stock);
         }
         return stockToQuantity;
     }
 
-    private void findOldPrice(QuantityStockDTO quantity) {
-        try {
-            CSVReader reader = new CSVReader(new FileReader(priceFileName));
-            String[] line;
-            List<PriceStockDTO> stockDTOS = new ArrayList<>();
-            while ((line = reader.readNext()) != null) {
-                if (quantity.getIsin().equals(line[1])) {
-                    stockDTOS.add(new PriceStockDTO(line[0], line[1], new BigDecimal(line[2])));
-                }
-            }
-                choseNearestPrice(stockDTOS, quantity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void choseNearestPrice(List<PriceStockDTO> stockDTOS, QuantityStockDTO quantity) {
+    private PriceStockDTO getNearestPriceStock(Map<String, PriceStockDTO> stockDTOS, QuantityStockDTO quantity) {
         NavigableSet<Integer> years = new TreeSet<>();
-        for (PriceStockDTO stockDTO : stockDTOS) {
-            years.add(new Integer(stockDTO.getYear()));
+        for (String year : stockDTOS.keySet()) {
+            years.add(new Integer(year));
         }
         Integer findYear = years.lower(new Integer(quantity.getYear()));
         if (findYear == null) {
             throw new IncorrectInitValueRuntimeException(INCORRECT_INIT_VALUES);
         }
-        for (PriceStockDTO stockDTO : stockDTOS) {
-            if (stockDTO.getYear().equals(findYear.toString())) {
-                Stock stock = new Stock(findYear.toString(), stockDTO.getIsin(), stockDTO.getPrice());
-                if(stockToQuantity.containsKey(stock)){
-                    BigDecimal oldQuantity = stockToQuantity.get(stock);
-                    stockToQuantity.put(stock, oldQuantity.add(quantity.getQuantity()));
-                }else {
-                    stockToQuantity.put(stock, quantity.getQuantity());
-                }
-            }
-        }
+        return stockDTOS.get(findYear.toString());
     }
 
-    private boolean checkPriceExist(QuantityStockDTO quantity) {
-        try {
-            CSVReader reader = new CSVReader(new FileReader(priceFileName));
-            String[] line;
-
-            while ((line = reader.readNext()) != null) {
-                if (quantity.getIsin().equals(line[1]) && quantity.getYear().equals(line[0])) {
-                    stockToQuantity.put(new Stock(line[0], line[1], new BigDecimal(line[2])), quantity.getQuantity());
-                    return true;
-                }
-            }
-        } catch (
-                IOException e) {
-            e.printStackTrace();
+    private void addQuantityToStock(Map<Stock, BigDecimal> stockToQuantity, QuantityStockDTO quantity, PriceStockDTO priceStockDTO) {
+        Stock stock = new Stock(priceStockDTO.getYear(), priceStockDTO.getIsin(), priceStockDTO.getPrice());
+        if (!stockToQuantity.containsKey(stock)) {
+            stockToQuantity.put(stock, quantity.getQuantity());
+        } else {
+            BigDecimal oldQuantity = stockToQuantity.get(stock);
+            stockToQuantity.put(stock, oldQuantity.add(quantity.getQuantity()));
         }
-        return false;
     }
 
     public Set<String> findAvailableYears() {
