@@ -1,4 +1,4 @@
-package portfolio.entity;
+package portfolio.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,14 +24,6 @@ public class StockEntity {
     private BigDecimal price;
 
     @Basic(optional = false)
-    @Column(name = "quantity")
-    private BigDecimal quantity;
-
-    @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private PortfolioEntity portfolio;
-
-    @Basic(optional = false)
     @Column(name = "year")
-    private int year;
+    private String year;
 }

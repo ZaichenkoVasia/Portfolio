@@ -1,4 +1,4 @@
-package portfolio.entity;
+package portfolio.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,5 +30,5 @@ public class TotalValueEntity {
 
     @Basic(optional = false)
     @Column(name = "year")
-    private int year;
+    private String year;
 }
