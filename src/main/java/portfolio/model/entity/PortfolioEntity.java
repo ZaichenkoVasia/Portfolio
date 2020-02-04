@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -20,11 +19,7 @@ public class PortfolioEntity {
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "stock_isin", referencedColumnName = "isin")
-    @ManyToOne(optional = false)
-    private StockEntity stock;
-
     @Basic(optional = false)
-    @Column(name = "quantity")
-    private BigDecimal quantity;
+    @Column(name = "name")
+    private String name;
 }

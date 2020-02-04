@@ -2,10 +2,13 @@ package portfolio.model.service;
 
 import portfolio.model.data.FileParser;
 import portfolio.model.domain.Portfolio;
+import portfolio.model.domain.Share;
 import portfolio.model.domain.Stock;
 import portfolio.model.service.exception.IncorrectInitValueRuntimeException;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,33 +20,26 @@ public class PortfolioService {
         this.fileParser = fileParser;
     }
 
-    public BigDecimal calculateTotalValue(Portfolio portfolio) {
+    public BigDecimal calculateTotalValue(String year, long id) {
         BigDecimal totalValue = BigDecimal.ZERO;
-        Map<Stock, BigDecimal> stocks = portfolio.getStockToQuantity();
-        for (Stock stock : stocks.keySet()) {
-            BigDecimal stockPrice = stock.getPrice();
-            BigDecimal portfolioStockPrice = stockPrice.multiply(stocks.get(stock));
-            totalValue = totalValue.add(portfolioStockPrice);
-        }
+//        Map<Stock, BigDecimal> stocks = portfolio.getStockToQuantity();
+//        for (Stock stock : stocks.keySet()) {
+//            BigDecimal stockPrice = stock.getPrice();
+//            BigDecimal portfolioStockPrice = stockPrice.multiply(stocks.get(stock));
+//            totalValue = totalValue.add(portfolioStockPrice);
+//        }
         return totalValue;
     }
 
     public BigDecimal differenceTotalValuesByTwoYear(Portfolio firstPortfolio, Portfolio secondPortfolio) {
-        BigDecimal firstTotalValue = calculateTotalValue(firstPortfolio);
-        BigDecimal secondTotalValue = calculateTotalValue(secondPortfolio);
-        return secondTotalValue.subtract(firstTotalValue);
+//        BigDecimal firstTotalValue = calculateTotalValue(firstPortfolio);
+//        BigDecimal secondTotalValue = calculateTotalValue(secondPortfolio);
+//        return secondTotalValue.subtract(firstTotalValue);
+        return null;
     }
 
     public void print(Portfolio portfolio) {
         portfolio.print();
-    }
-
-    public Portfolio getPortfolio(String year, long id) {
-        Map<Stock, BigDecimal> stockToQuantity = fileParser.parseCSVQuantityFile(year, id);
-        if (stockToQuantity == null) {
-            throw new IncorrectInitValueRuntimeException(INCORRECT_INIT_VALUES);
-        }
-        return new Portfolio(id, stockToQuantity, year);
     }
 
     public Set<String> getAvailableYears(){

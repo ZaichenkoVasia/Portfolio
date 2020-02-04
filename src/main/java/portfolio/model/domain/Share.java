@@ -9,8 +9,10 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Stock {
+public class Share {
+    private Long id;
+    private Stock stock;
+    private BigDecimal quantity;
     private String year;
-    private String isin;
-    private BigDecimal price;
+    private Portfolio portfolio;
 }

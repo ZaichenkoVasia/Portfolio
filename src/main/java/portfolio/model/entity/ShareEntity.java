@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "stocks")
-public class StockEntity {
+@Table(name = "shares")
+public class ShareEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +20,17 @@ public class StockEntity {
     @Column(name = "id")
     private Long id;
 
-    @Basic(optional = false)
-    @Column(name = "isin")
-    private String isin;
+    @JoinColumn(name = "stock_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private StockEntity stock;
 
     @Basic(optional = false)
-    @Column(name = "price_year")
-    private BigDecimal price;
+    @Column(name = "quantity_year")
+    private BigDecimal quantity;
+
+    @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private PortfolioEntity portfolio;
 
     @Basic(optional = false)
     @Column(name = "year")

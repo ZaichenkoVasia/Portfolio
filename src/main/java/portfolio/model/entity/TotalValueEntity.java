@@ -24,11 +24,11 @@ public class TotalValueEntity {
     @Column(name = "value")
     private BigDecimal value;
 
-    @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private PortfolioEntity portfolio;
-
     @Basic(optional = false)
     @Column(name = "year")
     private String year;
+
+    @JoinColumn(name = "portfolio_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private PortfolioEntity portfolio;
 }
