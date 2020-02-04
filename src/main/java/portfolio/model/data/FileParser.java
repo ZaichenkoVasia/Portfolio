@@ -1,10 +1,10 @@
-package portfolio.data;
+package portfolio.model.data;
 
 import com.opencsv.CSVReader;
-import portfolio.data.dto.PriceStockDTO;
-import portfolio.data.dto.QuantityStockDTO;
-import portfolio.service.domain.Stock;
-import portfolio.service.exception.IncorrectInitValueRuntimeException;
+import portfolio.model.data.dto.PriceStockDTO;
+import portfolio.model.data.dto.QuantityStockDTO;
+import portfolio.model.domain.Stock;
+import portfolio.model.service.exception.IncorrectInitValueRuntimeException;
 
 import java.io.FileReader;
 import java.io.IOException;

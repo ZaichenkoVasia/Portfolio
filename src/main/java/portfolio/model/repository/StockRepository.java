@@ -1,8 +1,8 @@
-package portfolio.data.repository;
+package portfolio.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import portfolio.data.entity.StockEntity;
+import portfolio.model.entity.StockEntity;
 
 import java.util.Optional;
 

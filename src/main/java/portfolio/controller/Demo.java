@@ -1,8 +1,8 @@
-package portfolio.view;
+package portfolio.controller;
 
-import portfolio.service.domain.Portfolio;
-import portfolio.service.PortfolioService;
-import portfolio.data.FileParser;
+import portfolio.model.domain.Portfolio;
+import portfolio.model.service.PortfolioService;
+import portfolio.model.data.FileParser;
 
 import java.math.BigDecimal;
 import java.util.Scanner;

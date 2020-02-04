@@ -1,4 +1,4 @@
-package portfolio.data.dto;
+package portfolio.model.data.dto;
 
 import java.math.BigDecimal;
 import java.util.Objects;

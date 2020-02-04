@@ -1,4 +1,4 @@
-package portfolio.service.domain;
+package portfolio.model.domain;
 
 import java.math.BigDecimal;
 import java.util.Objects;

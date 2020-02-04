@@ -1,9 +1,9 @@
-package portfolio.service;
+package portfolio.model.service;
 
-import portfolio.data.FileParser;
-import portfolio.service.domain.Portfolio;
-import portfolio.service.domain.Stock;
-import portfolio.service.exception.IncorrectInitValueRuntimeException;
+import portfolio.model.data.FileParser;
+import portfolio.model.domain.Portfolio;
+import portfolio.model.domain.Stock;
+import portfolio.model.service.exception.IncorrectInitValueRuntimeException;
 
 import java.math.BigDecimal;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package portfolio.service;
+package portfolio.model.service;
 
 import static org.hamcrest.CoreMatchers.is;
 

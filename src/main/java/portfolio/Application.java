@@ -6,9 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import portfolio.data.FileParser;
-import portfolio.service.PortfolioService;
-import portfolio.service.domain.Portfolio;
+import portfolio.model.data.FileParser;
+import portfolio.model.service.PortfolioService;
+import portfolio.model.domain.Portfolio;
 
 import java.math.BigDecimal;
 import java.util.Scanner;
