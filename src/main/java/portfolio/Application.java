@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import portfolio.model.data.FileParser;
-import portfolio.model.service.PortfolioService;
+import portfolio.model.service.impl.PortfolioServiceImpl;
 import portfolio.model.domain.Portfolio;
 
 import java.math.BigDecimal;
@@ -20,7 +20,7 @@ public class Application {
     private static final String FILE_NAME_PRICE = "src/main/resources/price/price.csv";
     private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.csv";
     private static FileParser fileParser = new FileParser(FILE_NAME_PRICE, FILE_NAME_QUANTITY);
-    private static PortfolioService portfolioService = new PortfolioService(fileParser);
+    private static PortfolioServiceImpl portfolioServiceImpl = new PortfolioServiceImpl(fileParser);
     private static long id =1;
 
     public static void main(String[] args) {
@@ -35,7 +35,7 @@ public class Application {
     }
 
     private static void menu() {
-        Set<String> years = portfolioService.getAvailableYears();
+        Set<String> years = portfolioServiceImpl.getAvailableYears();
         System.out.println("\nChose portfolio from available year" + years + " (write '0' for exit)");
         Scanner scanner = new Scanner(System.in);
         String firstYear = scanner.next();
@@ -51,18 +51,18 @@ public class Application {
     }
 
     private static void findDifference(String firstYear, String secondYear) {
-        Portfolio firstPortfolio = portfolioService.getPortfolio(firstYear, id);
-        BigDecimal firstTotalValue = portfolioService.calculateTotalValue(firstPortfolio);
-        portfolioService.print(firstPortfolio);
+        Portfolio firstPortfolio = portfolioServiceImpl.getPortfolio(firstYear, id);
+        BigDecimal firstTotalValue = portfolioServiceImpl.calculateTotalValue(firstPortfolio);
+        portfolioServiceImpl.print(firstPortfolio);
         showTotalValue(firstTotalValue, firstYear);
 
-        Portfolio secondPortfolio =portfolioService.getPortfolio(secondYear, id);
+        Portfolio secondPortfolio = portfolioServiceImpl.getPortfolio(secondYear, id);
 
-        BigDecimal secondTotalValue = portfolioService.calculateTotalValue(secondPortfolio);
-        portfolioService.print(secondPortfolio);
+        BigDecimal secondTotalValue = portfolioServiceImpl.calculateTotalValue(secondPortfolio);
+        portfolioServiceImpl.print(secondPortfolio);
         showTotalValue(secondTotalValue, secondYear);
 
-        BigDecimal difference = portfolioService.differenceTotalValuesByTwoYear(firstPortfolio, secondPortfolio);
+        BigDecimal difference = portfolioServiceImpl.differenceTotalValuesByTwoYear(firstPortfolio, secondPortfolio);
         printDifference(difference);
         menu();
     }

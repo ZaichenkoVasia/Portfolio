@@ -6,7 +6,7 @@ import portfolio.model.entity.TotalValueEntity;
 
 import java.util.Optional;
 
-public interface TotalValuesRepository extends JpaRepository<TotalValueEntity, Long> {
+public interface TotalValueRepository extends JpaRepository<TotalValueEntity, Long> {
 
     Optional<TotalValueEntity> findByPortfolioAndYear(PortfolioEntity portfolio, String year);
 }
