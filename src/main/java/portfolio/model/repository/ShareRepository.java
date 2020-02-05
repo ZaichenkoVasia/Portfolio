@@ -5,10 +5,10 @@ import org.springframework.stereotype.Repository;
 import portfolio.model.entity.PortfolioEntity;
 import portfolio.model.entity.ShareEntity;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface ShareRepository extends JpaRepository<ShareEntity, Long> {
 
-    Optional<ShareEntity> findByPortfolioAndYear(PortfolioEntity portfolio, String year);
+    List<ShareEntity> findByPortfolioAndYear(PortfolioEntity portfolio, String year);
 }

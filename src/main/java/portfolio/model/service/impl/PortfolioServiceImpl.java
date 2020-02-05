@@ -1,48 +1,43 @@
 package portfolio.model.service.impl;
 
-import portfolio.model.data.FileParser;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import portfolio.model.domain.Portfolio;
-import portfolio.model.domain.Share;
-import portfolio.model.domain.Stock;
-import portfolio.model.service.exception.IncorrectInitValueRuntimeException;
+import portfolio.model.repository.PortfolioRepository;
+import portfolio.model.service.PortfolioService;
+import portfolio.model.service.TotalValueService;
+import portfolio.model.service.exception.InvalidDataRuntimeException;
+import portfolio.model.service.mapper.PortfolioMapper;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-public class PortfolioServiceImpl {
-    private static final String INCORRECT_INIT_VALUES = "Init values of price or quantity are incorrect";
-    private FileParser fileParser;
+@Service
+@Slf4j
+@AllArgsConstructor(onConstructor = @__(@Autowired))
+public class PortfolioServiceImpl implements PortfolioService {
+    private TotalValueService totalValueService;
+    private PortfolioMapper mapper;
+    private PortfolioRepository repository;
 
-    public PortfolioServiceImpl(FileParser fileParser) {
-        this.fileParser = fileParser;
+    @Override
+    public Portfolio findById(Long id) {
+        return mapper.portfolioEntityToPortfolio(repository.findById(id).
+                orElseThrow(() -> new InvalidDataRuntimeException("Don't find portfolio by this data")));
     }
 
-    public BigDecimal calculateTotalValue(String year, long id) {
-        BigDecimal totalValue = BigDecimal.ZERO;
-//        Map<Stock, BigDecimal> stocks = portfolio.getStockToQuantity();
-//        for (Stock stock : stocks.keySet()) {
-//            BigDecimal stockPrice = stock.getPrice();
-//            BigDecimal portfolioStockPrice = stockPrice.multiply(stocks.get(stock));
-//            totalValue = totalValue.add(portfolioStockPrice);
-//        }
-        return totalValue;
+    @Override
+    public BigDecimal differenceTotalValuesByTwoYear(Portfolio portfolio,
+                                                     String firstYear, String secondYear) {
+        BigDecimal firstTotalValue = totalValueService.findByPortfolioAndYear(portfolio, firstYear).getValue();
+        BigDecimal secondTotalValue = totalValueService.findByPortfolioAndYear(portfolio, secondYear).getValue();
+        return secondTotalValue.subtract(firstTotalValue);
     }
 
-    public BigDecimal differenceTotalValuesByTwoYear(Portfolio firstPortfolio, Portfolio secondPortfolio) {
-//        BigDecimal firstTotalValue = calculateTotalValue(firstPortfolio);
-//        BigDecimal secondTotalValue = calculateTotalValue(secondPortfolio);
-//        return secondTotalValue.subtract(firstTotalValue);
-        return null;
-    }
-
-    public void print(Portfolio portfolio) {
-        portfolio.print();
-    }
-
-    public Set<String> getAvailableYears(){
-        return fileParser.findAvailableYears();
+    @Override
+    public List<String> getAvailableYears(Portfolio portfolio) {
+        return totalValueService.getAvailableYears(portfolio);
     }
 }

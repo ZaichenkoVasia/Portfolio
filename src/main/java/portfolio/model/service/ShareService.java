@@ -3,9 +3,11 @@ package portfolio.model.service;
 import portfolio.model.domain.Portfolio;
 import portfolio.model.domain.Share;
 
+import java.util.List;
+
 public interface ShareService {
 
     void addShare(Share share);
 
-    Share findByPortfolioAndYear(Portfolio portfolio, String year);
+    List<Share> findByPortfolioAndYear(Portfolio portfolio, String year);
 }

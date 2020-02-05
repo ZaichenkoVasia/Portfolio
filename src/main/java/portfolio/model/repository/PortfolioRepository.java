@@ -6,4 +6,5 @@ import portfolio.model.entity.PortfolioEntity;
 
 @Repository
 public interface PortfolioRepository extends JpaRepository<PortfolioEntity, Long> {
+
 }

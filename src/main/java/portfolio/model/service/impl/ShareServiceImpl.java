@@ -14,7 +14,10 @@ import portfolio.model.service.exception.InvalidDataRuntimeException;
 import portfolio.model.service.mapper.PortfolioMapper;
 import portfolio.model.service.mapper.ShareMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -35,9 +38,12 @@ public class ShareServiceImpl implements ShareService {
     }
 
     @Override
-    public Share findByPortfolioAndYear(Portfolio portfolio, String year) {
+    public List<Share> findByPortfolioAndYear(Portfolio portfolio, String year) {
         PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
-        return mapper.shareEntityToShare(repository.findByPortfolioAndYear(portfolioEntity, year).
-                orElseThrow(() -> new InvalidDataRuntimeException("Don't find share by this data")));
+        List<ShareEntity> shares = repository.findByPortfolioAndYear(portfolioEntity, year);
+        return shares.isEmpty() ? Collections.emptyList()
+                : shares.stream()
+                .map(mapper::shareEntityToShare)
+                .collect(Collectors.toList());
     }
 }
