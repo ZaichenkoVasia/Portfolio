@@ -47,11 +47,10 @@ public class TotalValueServiceImpl implements TotalValueService {
 
     @Override
     public List<String> getAvailableYears(Portfolio portfolio) {
-        PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
-        List<TotalValueEntity> totalValues = repository.findAllByPortfolio(portfolioEntity);
+        List<Share> shares = shareService.findByPortfolio(portfolio);
         Set<Integer> availableYearsSet = new TreeSet<>(Comparator.comparingInt(y -> y));
-        for (TotalValueEntity totalValue : totalValues) {
-            availableYearsSet.add(Integer.valueOf(totalValue.getYear()));
+        for (Share share : shares) {
+            availableYearsSet.add(Integer.valueOf(share.getYear()));
         }
         List<String> availableYearsList = new ArrayList<>();
         for (Integer availableYear : availableYearsSet) {

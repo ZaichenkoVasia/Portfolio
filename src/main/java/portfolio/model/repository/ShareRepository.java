@@ -11,4 +11,6 @@ import java.util.List;
 public interface ShareRepository extends JpaRepository<ShareEntity, Long> {
 
     List<ShareEntity> findByPortfolioAndYear(PortfolioEntity portfolio, String year);
+
+    List<ShareEntity> findByPortfolio(PortfolioEntity portfolio);
 }

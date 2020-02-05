@@ -10,4 +10,6 @@ public interface ShareService {
     void addShare(Share share);
 
     List<Share> findByPortfolioAndYear(Portfolio portfolio, String year);
+
+    List<Share> findByPortfolio(Portfolio portfolio);
 }

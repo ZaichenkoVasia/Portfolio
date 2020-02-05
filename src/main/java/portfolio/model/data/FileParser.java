@@ -2,6 +2,7 @@ package portfolio.model.data;
 
 import com.opencsv.CSVReader;
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import portfolio.model.data.dto.StockDTO;
 import portfolio.model.data.dto.ShareDTO;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
+@Component
 public class FileParser {
 
     public List<ShareDTO> parseCSVShareFile(String shareFileName) {

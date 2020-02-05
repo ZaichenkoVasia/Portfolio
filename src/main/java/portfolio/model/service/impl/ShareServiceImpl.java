@@ -41,6 +41,16 @@ public class ShareServiceImpl implements ShareService {
     public List<Share> findByPortfolioAndYear(Portfolio portfolio, String year) {
         PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
         List<ShareEntity> shareEntities = repository.findByPortfolioAndYear(portfolioEntity, year);
+        return shareEntities.isEmpty() ? Collections.emptyList()
+                : shareEntities.stream()
+                .map(mapper::shareEntityToShare)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Share> findByPortfolio(Portfolio portfolio) {
+        PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
+        List<ShareEntity> shareEntities = repository.findByPortfolio(portfolioEntity);
         List<Share> shares = shareEntities.isEmpty() ? Collections.emptyList()
                 : shareEntities.stream()
                 .map(mapper::shareEntityToShare)
