@@ -61,7 +61,7 @@ public class TotalValueServiceImpl implements TotalValueService {
     }
 
     @Override
-    public void calculateTotalValue(Portfolio portfolio, String year) {
+    public BigDecimal getTotalValueByYear(Portfolio portfolio, String year) {
         PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
         BigDecimal totalValue = BigDecimal.ZERO;
         List<Share> shares = shareService.findByPortfolioAndYear(portfolio, year);
@@ -81,5 +81,6 @@ public class TotalValueServiceImpl implements TotalValueService {
                     .year(year)
                     .build());
         }
+        return totalValue;
     }
 }

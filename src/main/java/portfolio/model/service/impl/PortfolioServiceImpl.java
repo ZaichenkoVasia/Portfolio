@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import portfolio.model.domain.Portfolio;
+import portfolio.model.entity.PortfolioEntity;
 import portfolio.model.repository.PortfolioRepository;
 import portfolio.model.service.PortfolioService;
 import portfolio.model.service.TotalValueService;
@@ -13,6 +14,7 @@ import portfolio.model.service.mapper.PortfolioMapper;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -21,6 +23,16 @@ public class PortfolioServiceImpl implements PortfolioService {
     private TotalValueService totalValueService;
     private PortfolioMapper mapper;
     private PortfolioRepository repository;
+
+    @Override
+    public void addPortfolio(Portfolio portfolio) {
+        if (Objects.isNull(portfolio)) {
+            log.warn("Invalid input portfolio data");
+            throw new InvalidDataRuntimeException("Invalid input portfolio data");
+        }
+        PortfolioEntity entity = mapper.portfolioToPortfolioEntity(portfolio);
+        repository.save(entity);
+    }
 
     @Override
     public Portfolio findById(Long id) {
@@ -40,4 +52,11 @@ public class PortfolioServiceImpl implements PortfolioService {
     public List<String> getAvailableYears(Portfolio portfolio) {
         return totalValueService.getAvailableYears(portfolio);
     }
+
+    @Override
+    public BigDecimal getTotalValueByYear(Portfolio portfolio, String year) {
+        return totalValueService.getTotalValueByYear(portfolio, year);
+    }
+
+
 }
