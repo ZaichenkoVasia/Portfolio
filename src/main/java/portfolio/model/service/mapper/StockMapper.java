@@ -3,9 +3,7 @@ package portfolio.model.service.mapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import portfolio.model.domain.Portfolio;
 import portfolio.model.domain.Stock;
-import portfolio.model.entity.PortfolioEntity;
 import portfolio.model.entity.StockEntity;
 
 import java.util.Objects;
@@ -21,8 +19,8 @@ public class StockMapper {
                 Stock.builder()
                         .id(entity.getId())
                         .year(entity.getYear())
-                        .value(entity.getValue())
-                        .portfolio(portfolio)
+                        .isin(entity.getIsin())
+                        .price(entity.getPrice())
                         .build();
     }
 
@@ -32,7 +30,9 @@ public class StockMapper {
                 null :
                 StockEntity.builder()
                         .id(domain.getId())
-                        .name(domain.getName())
+                        .year(domain.getYear())
+                        .isin(domain.getIsin())
+                        .price(domain.getPrice())
                         .build();
     }
 }
