@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface StockService {
 
-    void addStock(Stock share);
+    void addStock(Stock stock);
 
-    Optional<Stock> findByIsinAndYear(String isin, String year);
+    Stock findByIsinAndYear(String isin, String year);
 }

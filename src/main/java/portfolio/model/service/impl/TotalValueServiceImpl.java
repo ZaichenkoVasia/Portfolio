@@ -20,24 +20,24 @@ import java.util.Objects;
 @Slf4j
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class TotalValueServiceImpl implements TotalValueService {
-    private TotalValueRepository totalValueRepository;
     private TotalValueMapper mapper;
     private PortfolioMapper portfolioMapper;
+    private TotalValueRepository repository;
 
     @Override
     public void addTotalValue(TotalValue totalValue) {
         if (Objects.isNull(totalValue)) {
-            log.warn("Invalid input bus data");
-            throw new InvalidDataRuntimeException("Invalid input bus data");
+            log.warn("Invalid input total value data");
+            throw new InvalidDataRuntimeException("Invalid input total value data");
         }
         TotalValueEntity entity = mapper.totalValueToTotalValueEntity(totalValue);
-        totalValueRepository.save(entity);
+        repository.save(entity);
     }
 
     @Override
     public TotalValue findByPortfolioAndYear(Portfolio portfolio, String year) {
         PortfolioEntity portfolioEntity = portfolioMapper.portfolioToPortfolioEntity(portfolio);
-        return mapper.totalValueEntityToTotalValue(totalValueRepository.findByPortfolioAndYear(portfolioEntity, year).
-                orElseThrow(() -> new InvalidDataRuntimeException("Don't find user by this id")));
+        return mapper.totalValueEntityToTotalValue(repository.findByPortfolioAndYear(portfolioEntity, year).
+                orElseThrow(() -> new InvalidDataRuntimeException("Don't find total value by this data")));
     }
 }
