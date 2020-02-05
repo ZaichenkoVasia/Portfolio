@@ -1,7 +1,6 @@
 package portfolio.model.service;
 
 import portfolio.model.domain.Stock;
-import portfolio.model.entity.StockEntity;
 
 import java.util.List;
 
