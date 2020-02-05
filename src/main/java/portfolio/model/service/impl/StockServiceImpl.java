@@ -11,7 +11,10 @@ import portfolio.model.service.StockService;
 import portfolio.model.service.exception.InvalidDataRuntimeException;
 import portfolio.model.service.mapper.StockMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,5 +37,14 @@ public class StockServiceImpl implements StockService {
     public Stock findByIsinAndYear(String isin, String year) {
         return mapper.stockEntityToStock(repository.findByIsinAndYear(isin, year).
                 orElseThrow(() -> new InvalidDataRuntimeException("Don't find stock by this data")));
+    }
+
+    @Override
+    public List<Stock> findByIsin(String isin) {
+        List<StockEntity> stocks = repository.findByIsin(isin);
+        return stocks.isEmpty() ? Collections.emptyList()
+                : stocks.stream()
+                .map(mapper::stockEntityToStock)
+                .collect(Collectors.toList());
     }
 }

@@ -11,8 +11,9 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QuantityStockDTO {
+public class ShareDTO {
     private String year;
     private String isin;
     private BigDecimal quantity;
+    private Long IdPortfolio;
 }

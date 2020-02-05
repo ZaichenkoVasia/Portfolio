@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PriceStockDTO {
+public class StockDTO {
     private String year;
     private String isin;
     private BigDecimal price;

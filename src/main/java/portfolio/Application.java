@@ -6,7 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import portfolio.model.data.FileParser;
 import portfolio.model.service.impl.PortfolioServiceImpl;
 import portfolio.model.domain.Portfolio;
 
@@ -17,10 +16,10 @@ import java.util.Set;
 @SpringBootApplication
 public class Application {
 
-    private static final String FILE_NAME_PRICE = "src/main/resources/price/price.csv";
-    private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/quantity.csv";
-    private static FileParser fileParser = new FileParser(FILE_NAME_PRICE, FILE_NAME_QUANTITY);
-    private static PortfolioServiceImpl portfolioServiceImpl = new PortfolioServiceImpl(fileParser);
+    private static final String FILE_NAME_PRICE = "src/main/resources/price/stocks.csv";
+    private static final String FILE_NAME_QUANTITY = "src/main/resources/quantity/shares.csv";
+    private static FileParserOld fileParserOld = new FileParserOld(FILE_NAME_PRICE, FILE_NAME_QUANTITY);
+    private static PortfolioServiceImpl portfolioServiceImpl = new PortfolioServiceImpl(fileParserOld);
     private static long id =1;
 
     public static void main(String[] args) {
