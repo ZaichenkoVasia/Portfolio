@@ -23,8 +23,8 @@ public class DemoController {
     private TotalValueService totalValueService;
 
     public void run() {
-        Portfolio portfolio = Portfolio.builder().id(1L).name("first_portfolio").build();
-        init(portfolio);
+        Portfolio portfolio = portfolioService.findById(1L);
+        parseFiles();
         menu(portfolio);
     }
 
@@ -44,9 +44,7 @@ public class DemoController {
         menu(portfolio);
     }
 
-    private void init(Portfolio portfolio) {
-        portfolioService.addPortfolio(portfolio);
-        portfolioService.addPortfolio(Portfolio.builder().id(2L).name("second_portfolio").build());
+    private void parseFiles() {
         parserService.parseStock(FILE_NAME_STOCK);
         parserService.parseShare(FILE_NAME_SHARE);
     }
