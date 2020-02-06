@@ -8,8 +8,9 @@ The financial portfolio consists of stocks. Each stock consists of the price and
 
 ### Input data
 
-- [quantity](src/main/resources/quantity/quantity.csv)
-- [price](src/main/resources/price/price.csv)
+- [stocks](src/main/resources/stock/stocks.csv)
+- [shares](src/main/resources/share/shares.csv)
+- [sql init files](src/main/resources/db/migration)
 
 ### Output data
 
