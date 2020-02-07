@@ -40,7 +40,7 @@ public class DemoController {
         if (years.contains(firstYear) && years.contains(secondYear)) {
             findDifference(firstYear, secondYear, portfolio);
         }
-        System.out.println("Sorry but this years are not available!");
+        System.out.println("Sorry this years are not available!");
         menu(portfolio);
     }
 
