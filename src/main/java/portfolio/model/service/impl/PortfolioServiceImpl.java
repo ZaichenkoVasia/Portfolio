@@ -58,5 +58,4 @@ public class PortfolioServiceImpl implements PortfolioService {
         return totalValueService.getTotalValueByYear(portfolio, year);
     }
 
-
 }
